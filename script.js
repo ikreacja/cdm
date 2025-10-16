@@ -244,16 +244,131 @@ function toggleMobileMenu() {
     navLinks.classList.toggle('active');
     navToggle.classList.toggle('active');
     mobileOverlay.classList.toggle('active');
-    
-    // Prevent body scroll and horizontal overflow when menu is open
+
+    // CRITICAL FIX: Force inline styles to bypass all CSS
     if (navLinks.classList.contains('active')) {
+        // Move nav-links outside of navbar to body
+        // This prevents navbar's overflow/positioning from clipping the menu
+        document.body.appendChild(navLinks);
+
+        // Get navbar height for positioning
+        const navbar = document.querySelector('.navbar');
+        const navbarHeight = navbar ? navbar.offsetHeight : 80;
+
+        // Calculate actual menu dimensions
+        const menuHeight = window.innerHeight - navbarHeight;
+        const menuWidth = window.innerWidth;
+
+        // Force menu container styles with actual pixel values
+        navLinks.style.display = 'flex';
+        navLinks.style.position = 'fixed';
+        navLinks.style.top = navbarHeight + 'px';
+        navLinks.style.left = '0px';
+        navLinks.style.right = '0px';
+        navLinks.style.width = menuWidth + 'px';
+        navLinks.style.minWidth = menuWidth + 'px';
+        navLinks.style.maxWidth = menuWidth + 'px';
+        navLinks.style.height = menuHeight + 'px';
+        navLinks.style.background = 'rgba(255, 255, 255, 0.98)';
+        navLinks.style.backdropFilter = 'blur(10px)';
+        navLinks.style.zIndex = '10000';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.padding = '40px 20px';
+        navLinks.style.gap = '25px';
+        navLinks.style.justifyContent = 'flex-start';
+        navLinks.style.alignItems = 'center';
+        navLinks.style.visibility = 'visible';
+        navLinks.style.opacity = '1';
+        navLinks.style.overflow = 'auto';
+        navLinks.style.boxSizing = 'border-box';
+        navLinks.style.margin = '0';
+        navLinks.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+
+        // Force all menu items to be visible
+        const menuItems = navLinks.querySelectorAll('li');
+        menuItems.forEach((item) => {
+            item.style.display = 'block';
+            item.style.width = '100%';
+            item.style.maxWidth = '300px';
+            item.style.visibility = 'visible';
+            item.style.opacity = '1';
+        });
+
+        // Force all links to be visible with proper styling
+        const links = navLinks.querySelectorAll('a');
+        links.forEach((link) => {
+            link.style.display = 'flex';
+            link.style.fontSize = '18px';
+            link.style.fontWeight = '600';
+            link.style.color = '#2B5F8A';
+            link.style.background = 'rgba(230, 242, 249, 0.5)';
+            link.style.padding = '15px 20px';
+            link.style.borderRadius = '10px';
+            link.style.border = '2px solid rgba(123, 180, 217, 0.3)';
+            link.style.width = '100%';
+            link.style.maxWidth = '300px';
+            link.style.textAlign = 'center';
+            link.style.justifyContent = 'center';
+            link.style.alignItems = 'center';
+            link.style.visibility = 'visible';
+            link.style.opacity = '1';
+            link.style.transition = 'all 0.3s ease';
+            link.style.textDecoration = 'none';
+
+            // Add hover effects
+            link.addEventListener('mouseenter', function() {
+                this.style.background = 'rgba(123, 180, 217, 0.3)';
+                this.style.borderColor = '#7BB4D9';
+                this.style.transform = 'translateY(-2px)';
+            });
+
+            link.addEventListener('mouseleave', function() {
+                this.style.background = 'rgba(230, 242, 249, 0.5)';
+                this.style.borderColor = 'rgba(123, 180, 217, 0.3)';
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Prevent body scroll
         document.body.classList.add('menu-open');
-        // Store current scroll position
         const scrollY = window.scrollY;
         document.body.style.top = `-${scrollY}px`;
     } else {
+        // Move nav-links back to navbar
+        const navbar = document.querySelector('.navbar .container');
+        if (navbar && navLinks.parentElement !== navbar) {
+            const navToggle = document.querySelector('.nav-toggle');
+            if (navToggle) {
+                navbar.insertBefore(navLinks, navToggle);
+            }
+        }
+
+        // Remove inline styles when closing
+        navLinks.style.display = '';
+        navLinks.style.position = '';
+        navLinks.style.top = '';
+        navLinks.style.left = '';
+        navLinks.style.right = '';
+        navLinks.style.width = '';
+        navLinks.style.minWidth = '';
+        navLinks.style.maxWidth = '';
+        navLinks.style.height = '';
+        navLinks.style.background = '';
+        navLinks.style.backdropFilter = '';
+        navLinks.style.zIndex = '';
+        navLinks.style.flexDirection = '';
+        navLinks.style.padding = '';
+        navLinks.style.gap = '';
+        navLinks.style.justifyContent = '';
+        navLinks.style.alignItems = '';
+        navLinks.style.visibility = '';
+        navLinks.style.opacity = '';
+        navLinks.style.overflow = '';
+        navLinks.style.boxSizing = '';
+        navLinks.style.margin = '';
+        navLinks.style.boxShadow = '';
+
         document.body.classList.remove('menu-open');
-        // Restore scroll position
         const scrollY = document.body.style.top;
         document.body.style.top = '';
         window.scrollTo(0, parseInt(scrollY || '0') * -1);
@@ -264,7 +379,16 @@ function closeMobileMenu() {
     navLinks.classList.remove('active');
     navToggle.classList.remove('active');
     mobileOverlay.classList.remove('active');
-    
+
+    // Move nav-links back to navbar
+    const navbar = document.querySelector('.navbar .container');
+    if (navbar && navLinks.parentElement !== navbar) {
+        const navToggleBtn = document.querySelector('.nav-toggle');
+        if (navToggleBtn) {
+            navbar.insertBefore(navLinks, navToggleBtn);
+        }
+    }
+
     // Restore body scroll
     document.body.classList.remove('menu-open');
     const scrollY = document.body.style.top;
@@ -579,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addTouchSupport();
 });
 
-// Add mobile menu and particle styles
+// Add particle and animation styles (mobile menu styles moved to style.css)
 const style = document.createElement('style');
 style.textContent = `
     .particle {
@@ -592,48 +716,16 @@ style.textContent = `
         z-index: 9999;
         box-shadow: 0 0 10px rgba(123, 180, 217, 0.5);
     }
-    
-    @media (max-width: 768px) {
-        .nav-links {
-            position: fixed;
-            top: 80px;
-            right: -100%;
-            width: 100%;
-            height: calc(100vh - 80px);
-            background: var(--bialy);
-            flex-direction: column;
-            padding: 40px 20px;
-            gap: 30px;
-            transition: right 0.3s ease;
-            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .nav-links.active {
-            right: 0;
-        }
-        
-        .nav-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .nav-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-    }
-    
+
     .navbar.scrolled {
         background: rgba(255, 255, 255, 0.98);
         box-shadow: 0 5px 30px rgba(43, 95, 138, 0.15);
     }
-    
+
     .animated {
         animation: fadeInUp 0.6s ease;
     }
-    
+
     @keyframes fadeInUp {
         from {
             opacity: 0;
