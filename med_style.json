@@ -1,0 +1,154 @@
+{
+    "brand": {
+      "name": "Centrum Dietoterapii Medycznej",
+      "tagline": "Twoje zdrowie oparte na nauce",
+      "logo_placement": "top_right_corner_or_header",
+      "logo_background": "light_or_blue_gradient"
+    },
+    
+    "color_palette": {
+      "primary": {
+        "main_blue": "#1E4E79",
+        "light_blue": "#5C8CB0",
+        "white": "#FFFFFF"
+      },
+      "accent": {
+        "coral_red": "#F05A5A",
+        "red_hover": "#D64545"
+      },
+      "neutral": {
+        "dark_gray": "#333333",
+        "light_gray": "#F5F7FA"
+      },
+      "gradient": {
+        "from": "#1E4E79",
+        "to": "#5C8CB0",
+        "direction": "vertical"
+      }
+    },
+    
+    "typography": {
+      "headings": {
+        "font_family": "Montserrat, sans-serif",
+        "font_weight": "600-700",
+        "color": "#1E4E79",
+        "sizes": {
+          "h1": "48-72px",
+          "h2": "32-48px",
+          "h3": "24-32px"
+        }
+      },
+      "body": {
+        "font_family": "Open Sans, sans-serif",
+        "font_weight": "400",
+        "color": "#333333",
+        "font_size": "14-16px",
+        "line_height": "1.6"
+      },
+      "accent_script": {
+        "font_family": "Dancing Script, cursive",
+        "color": "#5C8CB0",
+        "usage": "quotes_taglines"
+      }
+    },
+    
+    "visual_elements": {
+      "icons": {
+        "style": "line_art",
+        "theme": "medical_scientific",
+        "stroke_width": "2px",
+        "color": "#1E4E79"
+      },
+      "illustrations": {
+        "style": "flat_design",
+        "palette": "limited_brand_colors",
+        "motifs": ["stomach", "test_tubes", "microscope", "vegetables"]
+      },
+      "shapes": {
+        "hexagons": {
+          "usage": "logo_backgrounds_patterns",
+          "color": "#5C8CB0",
+          "opacity": "15%"
+        },
+        "molecules": {
+          "usage": "decorative_backgrounds",
+          "color": "#F5F7FA"
+        }
+      }
+    },
+    
+    "cta_buttons": {
+      "primary": {
+        "background": "#F05A5A",
+        "text_color": "#FFFFFF",
+        "hover_background": "#D64545",
+        "border_radius": "6px",
+        "padding": "12px 24px",
+        "font_weight": "600"
+      },
+      "secondary": {
+        "background": "#FFFFFF",
+        "border": "2px solid #1E4E79",
+        "text_color": "#1E4E79",
+        "hover_background": "#F5F7FA",
+        "border_radius": "6px",
+        "padding": "12px 24px"
+      }
+    },
+    
+    "layout": {
+      "grid": "12_columns",
+      "margins": {
+        "desktop": "80px",
+        "mobile": "20px"
+      },
+      "section_spacing": "60-100px",
+      "max_width": "1200px"
+    },
+    
+    "logo": {
+      "symbol": "3_connected_hexagons",
+      "text": {
+        "line_1": "CENTRUM",
+        "line_2": "DIETOTERAPII",
+        "line_3": "MEDYCZNEJ",
+        "alignment": "right_aligned_3_lines"
+      },
+      "colors": {
+        "symbol": "#5C8CB0",
+        "text": "#1E4E79"
+      }
+    },
+    
+    "effects": {
+      "shadows": {
+        "cards": "0 2px 8px rgba(30,78,121,0.1)",
+        "buttons": "0 2px 4px rgba(0,0,0,0.1)"
+      },
+      "transitions": "all 0.3s ease",
+      "hover": {
+        "scale": "1.02",
+        "opacity": "0.9"
+      }
+    },
+    
+    "responsive": {
+      "breakpoints": {
+        "mobile": "480px",
+        "tablet": "768px",
+        "desktop": "1024px"
+      },
+      "text_scaling": {
+        "mobile": "0.85",
+        "tablet": "0.95",
+        "desktop": "1"
+      }
+    },
+    
+    "usage_guidelines": {
+      "contrast_ratio": "minimum_4.5_to_1",
+      "white_space": "generous",
+      "hierarchy": "clear_3_levels",
+      "accessibility": "WCAG_2.1_AA_compliant"
+    }
+  }
