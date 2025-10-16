@@ -26,12 +26,134 @@ function toggleMobileMenuV2() {
     navLinks.classList.toggle('active');
     navToggle.classList.toggle('active');
     mobileOverlay.classList.toggle('active');
-    
-    // Prevent body scroll when menu is open
+
+    // CRITICAL FIX: Force inline styles to bypass all CSS
     if (navLinks.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
+        // Move nav-links outside of navbar to body
+        // This prevents navbar's overflow/positioning from clipping the menu
+        document.body.appendChild(navLinks);
+
+        // Get navbar height for positioning
+        const navbar = document.querySelector('.navbar');
+        const navbarHeight = navbar ? navbar.offsetHeight : 80;
+
+        // Calculate actual menu dimensions
+        const menuHeight = window.innerHeight - navbarHeight;
+        const menuWidth = window.innerWidth;
+
+        // Force menu container styles with actual pixel values
+        navLinks.style.display = 'flex';
+        navLinks.style.position = 'fixed';
+        navLinks.style.top = navbarHeight + 'px';
+        navLinks.style.left = '0px';
+        navLinks.style.right = '0px';
+        navLinks.style.width = menuWidth + 'px';
+        navLinks.style.minWidth = menuWidth + 'px';
+        navLinks.style.maxWidth = menuWidth + 'px';
+        navLinks.style.height = menuHeight + 'px';
+        navLinks.style.background = 'rgba(255, 255, 255, 0.98)';
+        navLinks.style.backdropFilter = 'blur(10px)';
+        navLinks.style.zIndex = '10000';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.padding = '40px 20px';
+        navLinks.style.gap = '25px';
+        navLinks.style.justifyContent = 'flex-start';
+        navLinks.style.alignItems = 'center';
+        navLinks.style.visibility = 'visible';
+        navLinks.style.opacity = '1';
+        navLinks.style.overflow = 'auto';
+        navLinks.style.boxSizing = 'border-box';
+        navLinks.style.margin = '0';
+        navLinks.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+
+        // Force all menu items to be visible
+        const menuItems = navLinks.querySelectorAll('li');
+        menuItems.forEach((item) => {
+            item.style.display = 'block';
+            item.style.width = '100%';
+            item.style.maxWidth = '300px';
+            item.style.visibility = 'visible';
+            item.style.opacity = '1';
+        });
+
+        // Force all links to be visible with proper styling
+        const links = navLinks.querySelectorAll('a');
+        links.forEach((link) => {
+            link.style.display = 'flex';
+            link.style.fontSize = '18px';
+            link.style.fontWeight = '600';
+            link.style.color = '#2B5F8A';
+            link.style.background = 'rgba(230, 242, 249, 0.5)';
+            link.style.padding = '15px 20px';
+            link.style.borderRadius = '10px';
+            link.style.border = '2px solid rgba(123, 180, 217, 0.3)';
+            link.style.width = '100%';
+            link.style.maxWidth = '300px';
+            link.style.textAlign = 'center';
+            link.style.justifyContent = 'center';
+            link.style.alignItems = 'center';
+            link.style.visibility = 'visible';
+            link.style.opacity = '1';
+            link.style.transition = 'all 0.3s ease';
+            link.style.textDecoration = 'none';
+
+            // Add hover effects
+            link.addEventListener('mouseenter', function() {
+                this.style.background = 'rgba(123, 180, 217, 0.3)';
+                this.style.borderColor = '#7BB4D9';
+                this.style.transform = 'translateY(-2px)';
+            });
+
+            link.addEventListener('mouseleave', function() {
+                this.style.background = 'rgba(230, 242, 249, 0.5)';
+                this.style.borderColor = 'rgba(123, 180, 217, 0.3)';
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Prevent body scroll
+        document.body.classList.add('menu-open');
+        const scrollY = window.scrollY;
+        document.body.style.top = `-${scrollY}px`;
     } else {
-        document.body.style.overflow = '';
+        // Move nav-links back to navbar
+        const navbar = document.querySelector('.navbar .container');
+        if (navbar && navLinks.parentElement !== navbar) {
+            const navToggle = document.querySelector('.nav-toggle');
+            if (navToggle) {
+                navbar.insertBefore(navLinks, navToggle);
+            }
+        }
+
+        // Remove inline styles when closing
+        navLinks.style.display = '';
+        navLinks.style.position = '';
+        navLinks.style.top = '';
+        navLinks.style.left = '';
+        navLinks.style.right = '';
+        navLinks.style.width = '';
+        navLinks.style.minWidth = '';
+        navLinks.style.maxWidth = '';
+        navLinks.style.height = '';
+        navLinks.style.background = '';
+        navLinks.style.backdropFilter = '';
+        navLinks.style.zIndex = '';
+        navLinks.style.flexDirection = '';
+        navLinks.style.padding = '';
+        navLinks.style.gap = '';
+        navLinks.style.justifyContent = '';
+        navLinks.style.alignItems = '';
+        navLinks.style.visibility = '';
+        navLinks.style.opacity = '';
+        navLinks.style.overflow = '';
+        navLinks.style.boxSizing = '';
+        navLinks.style.margin = '';
+        navLinks.style.boxShadow = '';
+
+        document.body.classList.remove('menu-open');
+        const scrollY = document.body.style.top;
+        document.body.style.top = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
 }
 
@@ -39,7 +161,21 @@ function closeMobileMenuV2() {
     navLinks.classList.remove('active');
     navToggle.classList.remove('active');
     mobileOverlay.classList.remove('active');
-    document.body.style.overflow = '';
+
+    // Move nav-links back to navbar
+    const navbar = document.querySelector('.navbar .container');
+    if (navbar && navLinks.parentElement !== navbar) {
+        const navToggleBtn = document.querySelector('.nav-toggle');
+        if (navToggleBtn) {
+            navbar.insertBefore(navLinks, navToggleBtn);
+        }
+    }
+
+    // Restore body scroll
+    document.body.classList.remove('menu-open');
+    const scrollY = document.body.style.top;
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
 }
 
 navToggle.addEventListener('click', toggleMobileMenuV2);
