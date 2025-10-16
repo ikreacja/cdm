@@ -298,14 +298,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add navbar background on scroll
+// Add navbar background on scroll and hide/show on scroll direction
 const navbar = document.querySelector('.navbar');
+let lastScrollPosition = 0;
+let scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
+
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
+    const currentScrollPosition = window.scrollY;
+
+    // Add scrolled class for styling
+    if (currentScrollPosition > 100) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
+
+    // Hide/show navbar based on scroll direction
+    // Don't hide if mobile menu is open
+    const isMobileMenuOpen = navLinks.classList.contains('active');
+
+    if (!isMobileMenuOpen && Math.abs(currentScrollPosition - lastScrollPosition) > scrollThreshold) {
+        if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 200) {
+            // Scrolling down & not at the top - hide navbar
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Scrolling up - show navbar
+            navbar.classList.remove('navbar-hidden');
+        }
+    }
+
+    // Always show navbar when near the top
+    if (currentScrollPosition < 100) {
+        navbar.classList.remove('navbar-hidden');
+    }
+
+    lastScrollPosition = currentScrollPosition;
 });
 
 // Intersection Observer for animations
@@ -353,17 +380,20 @@ gsap.to('.gradient-orb', {
 });
 
 // Parallax Effect on Scroll
-gsap.to('.hero-illustration', {
-    scrollTrigger: {
-        trigger: '.hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-    },
-    y: -100,
-    scale: 0.9,
-    opacity: 0.7
-});
+const heroIllustration = document.querySelector('.hero-illustration');
+if (heroIllustration) {
+    gsap.to('.hero-illustration', {
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1
+        },
+        y: -100,
+        scale: 0.9,
+        opacity: 0.7
+    });
+}
 
 // Service Cards 3D Rotation on Mouse Move
 document.querySelectorAll('.service-card').forEach(card => {
@@ -386,18 +416,20 @@ document.querySelectorAll('.service-card').forEach(card => {
     });
 });
 
-// Floating Animation for Hero Elements
-gsap.to('.hero-title .letter', {
-    y: -10,
-    duration: 2,
-    ease: 'power1.inOut',
-    yoyo: true,
-    repeat: -1,
-    stagger: {
-        each: 0.1,
-        from: 'start'
-    }
-});
+// Floating Animation for Hero Elements - Only on desktop
+if (window.innerWidth > 768) {
+    gsap.to('.hero-title .letter', {
+        y: -10,
+        duration: 2,
+        ease: 'power1.inOut',
+        yoyo: true,
+        repeat: -1,
+        stagger: {
+            each: 0.1,
+            from: 'start'
+        }
+    });
+}
 
 // Create Particle Effect
 function createParticle(x, y) {

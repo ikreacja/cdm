@@ -68,14 +68,41 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add navbar background on scroll
+// Add navbar background on scroll and hide/show on scroll direction
 const navbar = document.querySelector('.navbar');
+let lastScrollPosition = 0;
+let scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
+
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
+    const currentScrollPosition = window.scrollY;
+
+    // Add scrolled class for styling
+    if (currentScrollPosition > 100) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
+
+    // Hide/show navbar based on scroll direction
+    // Don't hide if mobile menu is open
+    const isMobileMenuOpen = navLinks.classList.contains('active');
+
+    if (!isMobileMenuOpen && Math.abs(currentScrollPosition - lastScrollPosition) > scrollThreshold) {
+        if (currentScrollPosition > lastScrollPosition && currentScrollPosition > 200) {
+            // Scrolling down & not at the top - hide navbar
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Scrolling up - show navbar
+            navbar.classList.remove('navbar-hidden');
+        }
+    }
+
+    // Always show navbar when near the top
+    if (currentScrollPosition < 100) {
+        navbar.classList.remove('navbar-hidden');
+    }
+
+    lastScrollPosition = currentScrollPosition;
 });
 
 // Lead Generation Methods

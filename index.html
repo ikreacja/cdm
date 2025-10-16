@@ -28,6 +28,10 @@
     
     <!-- Additional Meta Tags -->
     <meta name="theme-color" content="#2B5F8A">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="canonical" href="https://cdm.edu.pl">
     
     <!-- Favicon -->
@@ -44,6 +48,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
 </head>
 <body data-page="index">
+    <!-- Skip to main content link for accessibility -->
+    <a href="#hero" class="skip-link">Przejdź do treści głównej</a>
+
     <!-- Animated Background Elements -->
     <div class="animated-bg">
         <div class="gradient-orb orb-1"></div>
@@ -165,7 +172,7 @@
                     <p>W Centrum Dietoterapii Medycznej prowadzimy pacjentów krok po kroku do poprawy zdrowia. Nasze podejście opiera się na badaniach naukowych i doświadczeniu klinicznym.</p>
                 </div>
                 <div class="guide-illustration" data-aos="fade-left" data-aos-delay="200">
-                    <img src="Assets/images/cdm-leczenie-zywieniowe-oparte-na-badaniach.png" alt="Leczenie żywieniowe oparte na badaniach" class="guide-image">
+                    <img src="Assets/images/cdm-leczenie-zywieniowe-oparte-na-badaniach.png" alt="Leczenie żywieniowe oparte na badaniach" class="guide-image" loading="lazy" width="600" height="400">
                 </div>
             </div>
         </div>
@@ -226,7 +233,7 @@
                     </div>
                 </div>
                 <div class="solutions-illustration" data-aos="fade-left" data-aos-delay="200">
-                    <img src="Assets/images/CDM-dietoterapia_nasza_specjalizacja.webp" alt="Dietoterapia - nasza specjalizacja" class="solutions-image">
+                    <img src="Assets/images/CDM-dietoterapia_nasza_specjalizacja.webp" alt="Dietoterapia - nasza specjalizacja" class="solutions-image" loading="lazy" width="600" height="500">
                 </div>
             </div>
         </div>
@@ -306,7 +313,7 @@
                     </p>
                 </div>
                 <div class="result-illustration" data-aos="fade-left" data-aos-delay="200">
-                    <img src="Assets/images/cdm-sukces.webp" alt="Sukces w leczeniu otyłości" class="result-image">
+                    <img src="Assets/images/cdm-sukces.webp" alt="Sukces w leczeniu otyłości" class="result-image" loading="lazy" width="600" height="450">
                 </div>
             </div>
         </div>
@@ -553,11 +560,11 @@
                 <div class="contact-form">
                     <h3>Napisz do nas</h3>
                     <form>
-                        <input type="text" placeholder="Imię i nazwisko" required>
-                        <input type="email" placeholder="E-mail" required>
-                        <input type="tel" placeholder="Telefon">
-                        <textarea placeholder="Wiadomość" rows="5" required></textarea>
-                        <button type="submit" class="submit-button">Wyślij wiadomość</button>
+                        <input type="text" name="name" placeholder="Imię i nazwisko" autocomplete="name" required aria-label="Imię i nazwisko">
+                        <input type="email" name="email" placeholder="E-mail" autocomplete="email" required aria-label="Adres email" inputmode="email">
+                        <input type="tel" name="phone" placeholder="Telefon" autocomplete="tel" aria-label="Numer telefonu" inputmode="tel">
+                        <textarea name="message" placeholder="Wiadomość" rows="5" required aria-label="Treść wiadomości"></textarea>
+                        <button type="submit" class="submit-button" aria-label="Wyślij formularz kontaktowy">Wyślij wiadomość</button>
                     </form>
                 </div>
             </div>
@@ -581,7 +588,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="Assets/images/cmd-logo-white-tr80.png" alt="Centrum Dietoterapii Medycznej" height="80">
+                    <img src="Assets/images/cmd-logo-white-tr80.png" alt="Centrum Dietoterapii Medycznej" height="80" width="auto" loading="lazy">
                 </div>
                 <p>&copy; 2024 Centrum Dietoterapii Medycznej. Wszystkie prawa zastrzeżone. | Projekt <a href="https://ikreacja.pl" target="_blank" rel="noopener">iKreacja</a></p>
             </div>

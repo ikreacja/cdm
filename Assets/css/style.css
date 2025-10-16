@@ -39,11 +39,23 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    width: 100%;
+    max-width: 100vw;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 20px rgba(43, 95, 138, 0.1);
     z-index: 1000;
     padding: 15px 0;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(0);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Hide navbar on scroll down */
+.navbar.navbar-hidden {
+    transform: translateY(-100%);
+    box-shadow: none;
 }
 
 .navbar .container {
@@ -1378,15 +1390,17 @@ body {
 @media (max-width: 768px) {
     .floating-button {
         bottom: 20px;
-        right: 20px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
     }
-    
+
     .floating-button a {
         padding: 14px 18px;
         font-size: 13px;
         gap: 10px;
     }
-    
+
     .floating-text {
         font-size: 13px;
     }
@@ -1534,10 +1548,36 @@ body {
     /* Navigation mobile styles */
     .navbar {
         padding: 10px 0;
+        width: 100%;
+        max-width: 100vw;
+        left: 0;
+        right: 0;
+        overflow-x: hidden;
     }
-    
+
+    .navbar .container {
+        padding: 0 15px;
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        overflow: visible;
+    }
+
     .logo img {
         height: 60px;
+        max-width: 150px;
+    }
+
+    .nav-toggle {
+        margin-left: auto;
+        margin-right: 0;
+        padding: 8px;
+        flex-shrink: 0;
+    }
+
+    .nav-toggle span {
+        width: 22px;
+        height: 2.5px;
     }
     
     /* Grid layouts for mobile - single column */
@@ -1601,11 +1641,26 @@ body {
         flex-direction: column;
         text-align: center;
         gap: 15px;
+        align-items: center;
+        justify-content: center;
     }
-    
+
     .solution-number {
-        font-size: 36px;
-        min-width: auto;
+        font-size: 36px !important;
+        min-width: auto !important;
+        width: auto !important;
+        margin: 0 auto !important;
+        display: block !important;
+        text-align: center !important;
+        align-self: center !important;
+    }
+
+    .solution-content {
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
     }
     
     /* Quiz mobile optimization */
@@ -1642,15 +1697,17 @@ body {
     /* Floating button mobile */
     .floating-button {
         bottom: 15px;
-        right: 15px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
     }
-    
+
     .floating-button a {
         padding: 12px 15px;
         font-size: 12px;
         gap: 8px;
     }
-    
+
     .floating-text {
         font-size: 12px;
     }
@@ -1705,18 +1762,26 @@ body {
     
     /* Hide animated letters on mobile, show simple text */
     .hero-title .letter {
-        display: none;
+        display: none !important;
     }
-    
+
+    .hero-title .title-line {
+        display: none !important;
+    }
+
+    .hero-title br {
+        display: none !important;
+    }
+
     /* Show simple text content for mobile - different for each page */
     body[data-page="index"] .hero-title::after {
         content: "Bezpieczne leczenie otyłości. Trwałe efekty";
-        display: block;
+        display: block !important;
     }
-    
+
     body[data-page="wsparcie-operacji"] .hero-title::after {
         content: "Otyłość kwalifikująca do operacji? Zacznij bezpiecznie";
-        display: block;
+        display: block !important;
     }
     
     /* Mobile hamburger menu styles - Fixed positioning */
@@ -1876,4 +1941,478 @@ body {
 /* Smooth scroll */
 html {
     scroll-behavior: smooth;
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS - ENHANCEMENT
+   ============================================ */
+
+/* Very Small Mobile Devices (≤ 380px) */
+@media (max-width: 380px) {
+    /* Container with minimal padding for small screens */
+    .container {
+        padding: 0 10px !important;
+        max-width: 100vw !important;
+    }
+
+    /* Navbar ultra-compact */
+    .navbar .container {
+        padding: 0 8px !important;
+    }
+
+    .logo img {
+        height: 50px !important;
+        max-width: 120px;
+    }
+
+    .nav-toggle {
+        padding: 6px !important;
+    }
+
+    .nav-toggle span {
+        width: 20px !important;
+        height: 2px !important;
+    }
+
+    /* Further reduce hero title for very small screens */
+    .hero-title {
+        font-size: 24px;
+        letter-spacing: -0.5px;
+    }
+
+    /* Smaller headings */
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    /* Section padding reduction */
+    .problem,
+    .guide,
+    .plan,
+    .solutions,
+    .features,
+    .result,
+    .final-cta,
+    .contact,
+    .success-failure {
+        padding: 40px 0;
+    }
+
+    /* Buttons optimization */
+    .cta-button {
+        padding: 14px 20px;
+        font-size: 14px;
+        min-height: 48px; /* Touch target minimum */
+    }
+
+    /* Floating button adjustments */
+    .floating-button {
+        bottom: 10px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+    }
+
+    .floating-button a {
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+
+    .floating-text {
+        display: none; /* Hide text on very small screens */
+    }
+
+    /* Step and feature items */
+    .step-item,
+    .feature-item {
+        padding: 25px 15px;
+    }
+
+    /* Modal adjustments */
+    .modal-content {
+        margin: 5% 5px;
+        padding: 20px 15px;
+    }
+
+    /* Quiz options smaller */
+    .quiz-option {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    /* Contact form inputs */
+    .contact-form input,
+    .contact-form textarea {
+        padding: 12px 15px;
+        font-size: 15px;
+    }
+}
+
+/* Touch Target Size Enforcement (All Mobile) */
+@media (max-width: 768px) {
+    /* Solution numbers centered on ALL mobile devices */
+    .solution-item {
+        flex-direction: column !important;
+        text-align: center !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .solution-number {
+        font-size: 36px !important;
+        min-width: auto !important;
+        width: auto !important;
+        margin: 0 auto !important;
+        display: block !important;
+        text-align: center !important;
+        align-self: center !important;
+    }
+
+    .solution-content {
+        text-align: center !important;
+        width: 100% !important;
+    }
+
+    /* Ensure all interactive elements meet 44px minimum */
+    button,
+    .cta-button,
+    .submit-button,
+    .quiz-option,
+    .nav-links a,
+    .contact-item,
+    input[type="radio"],
+    input[type="checkbox"],
+    a {
+        min-height: 44px;
+        min-width: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Radio buttons and checkboxes */
+    .quiz-option input[type="radio"],
+    input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    /* Form inputs touch-friendly */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+        min-height: 48px;
+        padding: 14px 16px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        -webkit-appearance: none;
+        appearance: none;
+        border-radius: 8px;
+    }
+
+    textarea {
+        min-height: 100px;
+    }
+
+    /* Larger tap targets for quiz options */
+    .quiz-option {
+        min-height: 52px;
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+
+    /* Navigation links large tap target */
+    .nav-links.active a {
+        min-height: 52px;
+        padding: 16px 20px;
+        font-size: 17px;
+    }
+
+    /* Floating button adequate size */
+    .floating-button a {
+        min-height: 48px;
+        padding: 12px 16px;
+    }
+
+    /* Center floating button on mobile */
+    .floating-button {
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+    }
+}
+
+/* Performance Optimizations for Mobile */
+@media (max-width: 768px) {
+    /* Reduce animations on mobile for better performance */
+    * {
+        animation-duration: 0.5s !important;
+        transition-duration: 0.2s !important;
+    }
+
+    /* Disable parallax effects on mobile */
+    .hero-bg,
+    .animated-bg {
+        transform: none !important;
+    }
+
+    /* Optimize repaints with will-change on interactive elements */
+    .cta-button,
+    .nav-toggle,
+    .floating-button a {
+        will-change: transform;
+    }
+
+    /* Remove expensive box-shadows on scroll for performance */
+    .step-item:hover,
+    .feature-item:hover,
+    .service-card:hover {
+        box-shadow: 0 10px 20px rgba(43, 95, 138, 0.15);
+        transform: translateY(-4px);
+    }
+
+    /* Reduce gradient orb animations */
+    .gradient-orb {
+        opacity: 0.3;
+        animation: none !important;
+    }
+
+    /* Disable 3D transforms on mobile */
+    .service-card {
+        transform: none !important;
+    }
+
+    /* Simplify background patterns */
+    .problem::before,
+    .contact::before {
+        opacity: 0.3;
+    }
+}
+
+/* Horizontal Scroll Prevention */
+@media (max-width: 768px) {
+    html,
+    body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        width: 100%;
+        position: relative;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ensure images don't overflow */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Container constraint */
+    .container {
+        max-width: 100vw !important;
+        width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Prevent text overflow */
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* Navbar specific fixes for mobile */
+    .navbar {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+    .navbar .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 10px !important;
+        margin: 0 !important;
+    }
+
+    .logo {
+        flex-shrink: 0;
+        max-width: 60%;
+    }
+
+    .nav-toggle {
+        flex-shrink: 0;
+        margin-left: auto;
+    }
+}
+
+/* iOS-Specific Fixes */
+@supports (-webkit-touch-callout: none) {
+    /* Fix iOS input zoom */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    textarea,
+    select {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+    }
+
+    /* Fix iOS button rendering */
+    button,
+    .cta-button,
+    .submit-button {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+    /* Fix iOS Safari bottom bar */
+    .hero {
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
+    }
+
+    /* Smooth momentum scrolling */
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Android-Specific Fixes */
+@media (max-width: 768px) {
+    /* Fix tap highlight color */
+    * {
+        -webkit-tap-highlight-color: rgba(43, 95, 138, 0.2);
+        -webkit-touch-callout: none;
+    }
+
+    /* Prevent text selection on buttons */
+    button,
+    .cta-button,
+    .submit-button,
+    .nav-toggle {
+        -webkit-user-select: none;
+        user-select: none;
+    }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+    /* Reduce hero height in landscape */
+    .hero {
+        min-height: 100vh;
+        padding: 60px 0 40px;
+    }
+
+    /* Adjust navigation for landscape */
+    .nav-links.active {
+        padding: 20px;
+        gap: 15px;
+        overflow-y: auto;
+    }
+
+    .nav-links.active a {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+
+    /* Reduce section padding in landscape */
+    .problem,
+    .guide,
+    .plan,
+    .solutions,
+    .features,
+    .result,
+    .final-cta,
+    .contact,
+    .success-failure {
+        padding: 40px 0;
+    }
+}
+
+/* Accessibility Enhancements for Mobile */
+@media (max-width: 768px) {
+    /* Focus visible for keyboard navigation */
+    *:focus-visible {
+        outline: 3px solid var(--niebieski-jasny);
+        outline-offset: 2px;
+    }
+
+    /* Ensure sufficient contrast */
+    .hero-subtitle,
+    .problem p,
+    .final-cta p {
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Skip to main content link */
+    .skip-link:focus {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 10000;
+        padding: 10px 20px;
+        background: var(--niebieski-glowny);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+}
+
+/* Print Styles for Mobile */
+@media print {
+    /* Hide navigation and floating elements */
+    .navbar,
+    .floating-button,
+    .mobile-overlay,
+    .animated-bg,
+    .loading-screen {
+        display: none !important;
+    }
+
+    /* Ensure readable text */
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        color: #000;
+    }
+
+    /* Page breaks */
+    section {
+        page-break-inside: avoid;
+    }
+
+    /* Show links */
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
 }
